@@ -1,0 +1,34 @@
+name: Ejecución automática en Vertex AI Workbench
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ejecutar_codigo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Configurar credenciales de Vertex AI
+        env:
+          VAI_PROJECT_ID: ${{ secrets.VAI_PROJECT_ID }}
+          VAI_CREDENTIALS: ${{ secrets.VAI_CREDENTIALS }}
+        run: |
+          echo "$VAI_CREDENTIALS" > credentials.json
+          gcloud auth activate-service-account --key-file=credentials.json
+          gcloud config set project $VAI_PROJECT_ID
+          
+      - name: Ejecutar código
+        run: python index.py
