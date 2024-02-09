@@ -22,7 +22,6 @@ jobs:
 
   # JOB to run change detection and build the allowlist
   changes:
-    if: ${{ github.event.label.name == 'notebook-review' }}
     runs-on: ubuntu-latest
     # Set job outputs to values from filter step
     outputs:
