@@ -23,5 +23,5 @@ jobs:
         with:
           gcs_source_bucket: '${{ secrets.GCS_SOURCE }}'
           gcs_output_bucket: '${{ secrets.GCS_OUTPUT }}'
-          allowlist: index-py
+          allowlist: index.py
           region: us-east1
