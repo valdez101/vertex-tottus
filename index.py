@@ -1,4 +1,4 @@
-BUCKET_NAME ="gs://" + 'tottus-413622' + "-pipeline"
+BUCKET_NAME ="gs://" + 'vertex-tottus' + "-pipeline"
 
 PATH =%env PATH
 %env PATH={PATH}:/home/jupyter/.local/bin
