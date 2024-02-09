@@ -1,34 +1,22 @@
-name: Ejecución automática en Vertex AI Workbench
-
+name: Run Vertex AI Notebook
 on:
   push:
-    branches:
-      - main
-
+    branches: [ main ]
 jobs:
-  ejecutar_codigo:
+  run-notebook:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout código
+      - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Configurar Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.10'
-
-      - name: Instalar dependencias
-        run: pip install -r requirements.txt
-
-      - name: Configurar credenciales de Vertex AI
-        env:
-          VAI_PROJECT_ID: ${{ secrets.VAI_PROJECT_ID }}
-          VAI_CREDENTIALS: ${{ secrets.VAI_CREDENTIALS }}
+      - name: Create credential file
         run: |
-          echo "$VAI_CREDENTIALS" > credentials.json
-          gcloud auth activate-service-account --key-file=credentials.json
-          gcloud config set project $VAI_PROJECT_ID
-          
-      - name: Ejecutar código
-        run: python index.py
+          echo '${{ secrets.VAI_CREDENTIALS }}' > credential.json
+          echo "CREDENTIAL_FILE=$(pwd)/credential.json" >> $GITHUB_ENV
+      - name: Run Vertex AI Notebook
+        uses: google-github-actions/run-vertexai-notebook@main
+        with:
+          project_id: ${{ secrets.VAI_PROJECT_ID }}
+          region: us-central1
+          machine_type: n1-standard-4
+          notebook_file: index.py
+          credential_file: ${{ env.CREDENTIAL_FILE }}
