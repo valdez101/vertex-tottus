@@ -13,7 +13,7 @@ jobs:
           echo '${{ secrets.VAI_CREDENTIALS }}' > credential.json
           echo "CREDENTIAL_FILE=$(pwd)/credential.json" >> $GITHUB_ENV
       - name: Run Vertex AI Notebook
-        uses: google-github-actions/run-vertexai-notebook@main
+        uses: google-github-actions/run-vertexai-notebook@2
         with:
           project_id: ${{ secrets.VAI_PROJECT_ID }}
           region: us-central1
