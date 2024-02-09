@@ -3,7 +3,7 @@ name: Ejecución automática en Vertex AI Workbench
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   ejecutar_codigo:
