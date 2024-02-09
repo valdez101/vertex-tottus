@@ -9,15 +9,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Create credential file
-        run: |
-          echo '${{ secrets.VAI_CREDENTIALS }}' > credential.json
-          echo "CREDENTIAL_FILE=$(pwd)/credential.json" >> $GITHUB_ENV
+      #- name: Create credential file
+      #  run: |
+      #    echo '${{ secrets.VAI_CREDENTIALS }}' > credential.json
+      #    echo "CREDENTIAL_FILE=$(pwd)/credential.json" >> $GITHUB_ENV
       - name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v2.0.0'
         with:
           project_id: ${{ secrets.VAI_PROJECT_ID }}
-          credentials_json: ${{ env.CREDENTIAL_FILE }}
+          credentials_json: ${{ secrets.VAI_CREDENTIALS }}
       - name: Run Vertex AI Notebook
         uses: google-github-actions/run-vertexai-notebook@v0
         with:
