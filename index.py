@@ -1,6 +1,7 @@
 
 
-from kfp.v2.dsl import pipeline, component, Artifact, Dataset, Input, Metrics, Model, Output, InputPath, OutputPath
+from kfp.dsl import pipeline, component, Artifact, Dataset, Input, Metrics, Model, Output, InputPath, OutputPath
+from typing import Optional
 
 @component(
     packages_to_install=["pandas", "pyarrow", "scikit-learn"],
