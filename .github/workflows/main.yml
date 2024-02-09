@@ -15,8 +15,7 @@
 name: Execute notebooks found in a pull request and create links to their output files
 
 on:
-  pull_request:
-    types: [ labeled ]
+  push:
     branches:
     - master
 
